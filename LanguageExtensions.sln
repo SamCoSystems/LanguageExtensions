@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions", "src\LanguageExtensions\LanguageExtensions.csproj", "{AA405B60-CCAD-4A6B-AFF9-9F92BBA3626C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.Test", "tests\LanguageExtensions.Test\LanguageExtensions.Test.csproj", "{EBF04E51-AFFF-4338-927D-330F456F1DF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AA405B60-CCAD-4A6B-AFF9-9F92BBA3626C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA405B60-CCAD-4A6B-AFF9-9F92BBA3626C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA405B60-CCAD-4A6B-AFF9-9F92BBA3626C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF04E51-AFFF-4338-927D-330F456F1DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF04E51-AFFF-4338-927D-330F456F1DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF04E51-AFFF-4338-927D-330F456F1DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF04E51-AFFF-4338-927D-330F456F1DF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
