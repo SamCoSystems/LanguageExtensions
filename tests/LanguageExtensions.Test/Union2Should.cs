@@ -21,11 +21,13 @@ public class Union2Should
 	{
 		Union<string, int> stringOrInt = "Hello World!";
 		bool inBlock = false;
-		if (stringOrInt.Is<string>(out var str))
+
+		if (stringOrInt.Is(out string? str))
 		{
 			inBlock = true;
-			str.ShouldNotBeNull();
+			_ = str.ShouldNotBeNull();
 		}
+
 		inBlock.ShouldBeTrue();
 	}
 }

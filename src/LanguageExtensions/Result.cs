@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LanguageExtensions.Unions;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LanguageExtensions;
 
@@ -22,6 +18,14 @@ public abstract class Result<Data>
 	public static implicit operator Result<Data>(Error error) => new Failed<Data>(error);
 }
 
+public class UnwrappedFailedResult<Data> : Exception
+	where Data : notnull
+{
+	internal UnwrappedFailedResult(Error error)
+		: base($"Unwrapped a failed Result<{typeof(Data).Name}>. Code: {error.Code}. Message: {error.Message}")
+	{ }
+}
+
 public static class ResultExtensions
 {
 	public static Data Unwrap<Data>(
@@ -29,7 +33,7 @@ public static class ResultExtensions
 		where Data : notnull
 		=> result.Switch(
 			value => value,
-			error => throw new Exception(error.Message));
+			error => throw new UnwrappedFailedResult<Data>(error));
 
 	public static TaskAwaiter<Result<Data>> GetAwaiter<Data>(
 		this Result<Task<Data>> resultOfTask)

@@ -4,8 +4,7 @@ public class No<Data> : Maybe<Data>
 	where Data : notnull
 {
 	private No() { }
-	private static readonly No<Data> Instance = new No<Data>();
-	public static Maybe<Data> Value => Instance;
+	public static Maybe<Data> Value { get; } = new No<Data>();
 
 	public override Output Switch<Output>(
 		Func<Data, Output> Some,

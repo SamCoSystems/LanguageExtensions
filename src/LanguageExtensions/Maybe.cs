@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace LanguageExtensions;
 
@@ -41,8 +36,8 @@ public static class MaybeExtensions
 	{
 		if (maybeTask is Some<Task<Data>> someTask)
 		{
-			var task = someTask.Value;
-			var continuation = task.ContinueWith(TaskOfDataAsMaybe);
+			Task<Data> task = someTask.Value;
+			Task<Maybe<Data>> continuation = task.ContinueWith(TaskOfDataAsMaybe);
 			return continuation.GetAwaiter();
 		}
 

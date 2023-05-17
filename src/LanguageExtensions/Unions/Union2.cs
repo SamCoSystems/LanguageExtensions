@@ -35,6 +35,7 @@ public abstract record Union<One, Two>
 				value = typedValue;
 				return true;
 			}
+
 			value = null;
 			return false;
 		}
@@ -49,6 +50,7 @@ public abstract record Union<One, Two>
 				value = typedValue;
 				return true;
 			}
+
 			value = null;
 			return false;
 		}
@@ -71,6 +73,7 @@ public abstract record Union<One, Two>
 				value = typedValue;
 				return true;
 			}
+
 			value = null;
 			return false;
 		}
@@ -85,6 +88,7 @@ public abstract record Union<One, Two>
 				value = typedValue;
 				return true;
 			}
+
 			value = null;
 			return false;
 		}
