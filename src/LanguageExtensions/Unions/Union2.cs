@@ -29,31 +29,13 @@ public abstract record Union<One, Two>
 			[NotNullWhen(true)]
 			out Type? value)
 			where Type : class
-		{
-			if (Value is Type typedValue)
-			{
-				value = typedValue;
-				return true;
-			}
-
-			value = null;
-			return false;
-		}
+			=> Union.Is(Value, out value);
 
 		public override bool Is<Type>(
 			[NotNullWhen(true)]
 			out Type? value)
 			where Type : struct
-		{
-			if (Value is Type typedValue)
-			{
-				value = typedValue;
-				return true;
-			}
-
-			value = null;
-			return false;
-		}
+			=> Union.Is(Value, out value);
 
 		public override Output Switch<Output>(
 			Func<One, Output> whenOne,
@@ -67,31 +49,13 @@ public abstract record Union<One, Two>
 			[NotNullWhen(true)]
 			out Type? value)
 			where Type : class
-		{
-			if (Value is Type typedValue)
-			{
-				value = typedValue;
-				return true;
-			}
-
-			value = null;
-			return false;
-		}
+			=> Union.Is(Value, out value);
 
 		public override bool Is<Type>(
 			[NotNullWhen(true)]
 			out Type? value)
 			where Type : struct
-		{
-			if (Value is Type typedValue)
-			{
-				value = typedValue;
-				return true;
-			}
-
-			value = null;
-			return false;
-		}
+			=> Union.Is(Value, out value);
 
 		public override Output Switch<Output>(
 			Func<One, Output> whenOne,
