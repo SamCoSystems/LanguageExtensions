@@ -23,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\LanguageExtensions.Text.Json\LanguageExtensions.Text.Json.csproj" />
 		<ProjectReference Include="..\..\src\LanguageExtensions\LanguageExtensions.csproj" />
 	</ItemGroup>
 
