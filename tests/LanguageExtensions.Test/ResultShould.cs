@@ -2,9 +2,14 @@
 using System.Threading.Tasks;
 using System;
 using Xunit;
-using LanguageExtensions.Unions;
+using System.Collections.Generic;
 
 namespace LanguageExtensions.Test;
+
+public record AnonymousError : Error
+{
+	public AnonymousError() : base("Anonymous Error") { }
+}
 
 public class ResultShould
 {
@@ -17,7 +22,7 @@ public class ResultShould
 	[Fact]
 	public void BeAssignableFromError()
 	{
-		Result<string> maybeString = new Error("", "Anonymous Error");
+		Result<string> maybeString = new AnonymousError();
 	}
 
 	[Fact]
@@ -34,7 +39,7 @@ public class ResultShould
 	[Fact]
 	public void SwitchToNoneWhenNoValue()
 	{
-		Result<string> resultofString = new Error("", "Anonymous Error");
+		Result<string> resultofString = new AnonymousError();
 		bool isString = resultofString.Switch(
 			Success: str => true,
 			Failure: error => false);
@@ -55,7 +60,7 @@ public class ResultShould
 	[Fact]
 	public void ReturnErrorWhenFailure()
 	{
-		Result<string> resultOfString = new Error("", "Anonymous Error");
+		Result<string> resultOfString = new AnonymousError();
 		Func<string, int> length = str => str.Length;
 		Result<int> resultOfInt = resultOfString.Select(length);
 
@@ -65,7 +70,7 @@ public class ResultShould
 	[Fact]
 	public void NotCallSelectorWhenError()
 	{
-		Result<string> resultOfString = new Error("", "Anonymous Error");
+		Result<string> resultOfString = new AnonymousError();
 		bool called = false;
 		Func<string, int> length = str =>
 		{
@@ -83,6 +88,26 @@ public class ResultShould
 		Result<Task<int>> resultOfTask = Task.FromResult(1);
 		var resultOfInt = await resultOfTask;
 		resultOfInt.ShouldBeAssignableTo<Result<int>>();
+	}
+
+	[Fact]
+	public void UnwrapOrEarlyReturn()
+	{
+		Result<string> helloR = "hello";
+		Result<int> fiveR = 5;
+		Result<string> hellosR = AttemptEarlyReturn(helloR, fiveR);
+		Successful<string> hellosS = hellosR.ShouldBeOfType<Successful<string>>();
+		hellosS.Value.ShouldBe("5 hellos to you!");
+	}
+
+	private Result<string> AttemptEarlyReturn(
+		Result<string> helloR,
+		Result<int> fiveR)
+	{
+		if (helloR.UnwrapFails(out var hello, out var error)) return error;
+		if (fiveR.UnwrapFails(out var five, out error)) return error;
+
+		return $"{five} {hello}s to you!";
 	}
 
 	/*

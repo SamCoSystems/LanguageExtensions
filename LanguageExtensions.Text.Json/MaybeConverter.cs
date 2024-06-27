@@ -23,7 +23,7 @@ public class MaybeConverter<Data> : JsonConverter<Maybe<Data>>
 
 	public override Maybe<Data> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
-		object? result = JsonSerializer.Deserialize(ref reader, typeof(Data?));
+		object? result = JsonSerializer.Deserialize(ref reader, typeof(Data?), options);
 
 		return result is not null
 			? (Data)result
@@ -34,7 +34,7 @@ public class MaybeConverter<Data> : JsonConverter<Maybe<Data>>
 	{
 		if (value is Some<Data> someData)
 		{
-			JsonSerializer.Serialize(writer, someData.Value, someData.Value.GetType());
+			JsonSerializer.Serialize(writer, someData.Value, someData.Value.GetType(), options);
 		}
 		else
 		{

@@ -14,16 +14,13 @@ public class SubsetOfShould
 		public static Result<Age> Parse(int value)
 			=> value switch
 			{
-				< 0 => Negative(),
-				> 120 => TooOld(),
+				< 0 => new NegativeAge(),
+				> 120 => new TooOld(),
 				_ => new Age(value)
 			};
 
-		private static Error Negative()
-			=> new("AgeError-01", "Age cannot be negative");
-
-		private static Error TooOld()
-			=> new("AgeError-02", "Age cannot exceed 120");
+		public record NegativeAge() : Error("Age cannot be negative");
+		public record TooOld() : Error("Age cannot exceed 120");
 	}
 
 	[Fact]

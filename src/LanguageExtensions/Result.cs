@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.Unions;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace LanguageExtensions;
@@ -14,27 +14,17 @@ public abstract class Result<Data>
 		Func<Data, Output> selector)
 		where Output : notnull;
 
+	public abstract bool UnwrapFails(
+		[NotNullWhen(false)] out Data? data,
+		[NotNullWhen(true)] out Error? error);
+
 	public static implicit operator Result<Data>(Data data) => new Successful<Data>(data);
 	public static implicit operator Result<Data>(Error error) => new Failed<Data>(error);
-}
 
-public class UnwrappedFailedResult<Data> : Exception
-	where Data : notnull
-{
-	internal UnwrappedFailedResult(Error error)
-		: base($"Unwrapped a failed Result<{typeof(Data).Name}>. Code: {error.Code}. Message: {error.Message}")
-	{ }
 }
 
 public static class ResultExtensions
 {
-	public static Data Unwrap<Data>(
-		this Result<Data> result)
-		where Data : notnull
-		=> result.Switch(
-			value => value,
-			error => throw new UnwrappedFailedResult<Data>(error));
-
 	public static TaskAwaiter<Result<Data>> GetAwaiter<Data>(
 		this Result<Task<Data>> resultOfTask)
 		where Data : notnull

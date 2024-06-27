@@ -1,4 +1,6 @@
-﻿namespace LanguageExtensions;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace LanguageExtensions;
 
 public class Successful<Data> : Result<Data>
 	where Data : notnull
@@ -14,4 +16,13 @@ public class Successful<Data> : Result<Data>
 	public override Result<Output> Select<Output>(
 		Func<Data, Output> selector)
 		=> selector(Value);
+
+	public override bool UnwrapFails(
+		[NotNullWhen(false)] out Data? data,
+		[NotNullWhen(true)] out Error? error)
+	{
+		data = Value;
+		error = null;
+		return false;
+	}
 }

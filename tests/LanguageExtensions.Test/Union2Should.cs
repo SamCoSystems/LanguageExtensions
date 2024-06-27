@@ -25,7 +25,7 @@ public class Union2Should
 		if (stringOrInt.Is(out string? str))
 		{
 			inBlock = true;
-			_ = str.ShouldNotBeNull();
+			str.ShouldNotBeNull().ShouldBe("Hello World!");
 		}
 
 		inBlock.ShouldBeTrue();
